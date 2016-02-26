@@ -1,0 +1,45 @@
+html, body {
+    height: 100%;
+    width: auto;
+}
+
+.content {
+    padding-top: 120px;
+}
+
+#app-wrapper > .loading-directive,
+#home-wrapper .loading-directive {
+    padding: 60px 0;
+}
+
+.gravatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    padding: 2px;
+}
+
+.page-notification {
+    width: 100%;
+    margin-bottom: 1px;
+    height: 39px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.07);
+    .container {
+        display: flex;
+        height: 100%;
+        align-items: center;
+
+    }
+    .right-link {
+        flex-grow: 1;
+        text-align: right;
+    }
+}
+
+#app-iframe {
+    margin-bottom: -5px; // Not sure why this works
+    height: calc(100vh - 120px);
+    &.app-off {
+        height: calc(100vh - 160px);
+    }
+}

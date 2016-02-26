@@ -1,0 +1,31 @@
+<div id="page-header" ng-hide="hideTitle" ng-controller="NavTitleController">
+    <div class="container">
+
+        <!-- Page title -->
+        <div class="page-title" ng-class="page.image ? 'img-title' : 'icon-title'">
+            <!-- Icon/Image -->
+            <img ng-if="page.image" ng-hide="page.icon" class="header-icon" ng-src="{{ page.image }}">
+            <i ng-if="page.icon" class="header-icon icon" ng-class="page.icon"></i>
+
+            <!-- Breadcrumb titles -->
+            <h1>Welcome <strong ng-bind="user.firstName"></strong>!
+            <span ng-repeat="title in page.title" ng-class="{ trail: !$last }">
+                <a ng-if="title.path && !$last" ng-href="{{ title.path }}" ng-bind="title.text"></a>
+                <span ng-if="!title.path || $last" ng-bind="title.text"></span>
+                <span ng-if="!$last"> / </span>
+            </span>
+            </h1>
+        </div>
+
+        <!-- Page action buttons -->
+        <div class="page-actions" ng-if="!hideHome">
+            <div class="inline-block">
+                <a class="btn btn-default"
+                   href="/">
+                    <!-- Buttons can have icons, text, or both -->
+                    <span>Home</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

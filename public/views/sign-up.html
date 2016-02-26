@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="jumbotron text-center">
+        <h1>Want to jumpstart your productivity?</h1>
+
+        <p>{{ tagline }}</p>
+    </div>
+	<div class="row">
+		<div class="col-sm-3 section-summary">
+			<h3>App Settings</h3>
+			<p>Once your app is created, it will be available for use on your account.</p>
+			<a target="_blank" href="https://developers.enplug.com/guides/app-life-cycle/">Learn More</a>
+		</div>
+		<div class="col-sm-9">
+			<div class="card">
+				<div class="card-content">
+					<form class="form-material form" name="forms.form" novalidate>
+					    <label for="email"> E-mail
+                            <input type="text" id="email" ng-model="user.email" required/>
+							<p class="help-text">Must be a valid e-mail address</p>
+                        </label>
+                        <label> Password
+                            <input type="password" id="pass" minlength="8" ng-model="user.password" required/>
+						</label>
+						<p class="help-text">Must be at least 8 characters</p>
+						<button class="btn btn-primary" ng-click="createUser()">Create Account</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

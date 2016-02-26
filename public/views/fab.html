@@ -1,0 +1,28 @@
+<div>
+    <div class="fab" ng-class="{ open: open, 'normal-user': User.is.venue }">
+        <a id="fab-circle">
+            <i class="ion-navicon"></i>
+            <i class="ion-close"></i>
+            <img src="@@path/img/tail-spin.svg" width="30px">
+            <span id="fab-message" ng-bind="message"></span>
+            <span id="fab-width-calculator"></span>
+        </a>
+        <div class="fab-menu">
+            <ul>
+                <li ng-if="::User.has.rootAccess" ng-controller="EnvironmentController as env">
+                    <a ng-click="env.switchEnv()">
+                        <i ng-class="env.target.icon"></i><span style="background: #EF8A03;" ng-bind="'Switch to ' + env.target.text"></span>
+                    </a>
+                </li>
+                <li ng-if="::User.is.network || User.is.developer">
+                    <a href="/developers">
+                        <i class="ion-settings"></i>
+                        <span ng-bind="::User.is.network ? 'Apps' : 'My apps'"></span>
+                    </a>
+                </li>
+                <li ng-if="::User.is.network"><a href="/network/monitoring"><i class="ion-network"></i><span>Monitoring</span></a></li>
+                <li ng-if="::User.is.developer"><a href="/developers/apps/new-app"><i class="ion-plus-circled"></i><span>New app</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

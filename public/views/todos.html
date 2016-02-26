@@ -1,0 +1,88 @@
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3 section-summary">
+            <h3>Your Todos</h3>
+            <p>Change your todo due dates, text or email notifications at anytime.</p>
+            <p>Once a todo is marked as completed, the todo will be removed from the list.</p>
+            <a href="/user/add-todo"><i class="ion-plus"></i> Add another todo</a>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-content">
+                    <form>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ion-search"></i></div>
+                                <input type="text" class="form-control" placeholder="Search" ng-model="searchFilter">
+                            </div>
+                        </div>
+                    </form>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Description</th>
+                                <th>
+                                    <a style="color: #798c9c; font-weight:600; padding: 12px 10px 12px 10px; vertical-align: middle;"
+                                       href="#" ng-click="sortType = 'createdAt'; sortReverse = !sortReverse">
+                                    Created
+                                    <span ng-show="sortType == 'createdAt' && !sortReverse" class="fa ion-arrow-down-b"></span>
+                                    <span ng-show="sortType == 'createdAt' && sortReverse" class="fa ion-arrow-up-b"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a style="color: #798c9c; font-weight:600; padding: 12px 10px 12px 10px; vertical-align: middle;"
+                                       href="#" ng-click="sortType = 'dueDate'; sortReverse = !sortReverse">
+                                    Due Date
+                                    <span ng-show="sortType == 'dueDate' && !sortReverse" class="fa ion-arrow-down-b"></span>
+                                    <span ng-show="sortType == 'dueDate' && sortReverse" class="fa ion-arrow-up-b"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a style="color: #798c9c; font-weight:600; padding: 12px 10px 12px 10px; vertical-align: middle;"
+                                       href="#" ng-click="sortType = 'priority'; sortReverse = !sortReverse">
+                                    Priority
+                                    <span ng-show="sortType == 'priority' && !sortReverse" class="fa ion-arrow-down-b"></span>
+                                    <span ng-show="sortType == 'priority' && sortReverse" class="fa ion-arrow-up-b"></span>
+                                    </a>
+                                </th>
+                                <th>
+                                    <a style="color: #798c9c; font-weight:600; padding: 12px 10px 12px 10px; vertical-align: middle;"
+                                       href="#" ng-click="sortType = 'completed'; sortReverse = !sortReverse">
+                                    Completed
+                                    <span ng-show="sortType == 'completed' && !sortReverse" class="fa ion-arrow-down-b"></span>
+                                    <span ng-show="sortType == 'completed' && sortReverse" class="fa ion-arrow-up-b"></span>
+                                    </a>
+                                </th>
+                                <th>File</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="todo in todos | orderBy:sortType:sortReverse | filter:searchFilter">
+                                <td ng-bind="todo.description"></td>
+                                <td ng-bind="todo.createdAt | date"></td>
+                                <td ng-bind="todo.dueDate | date"></td>
+                                <td ng-bind="priorityLevelsMap[todo.priority]"></td>
+                                <td class="text-center">
+                                    <material-checkbox
+                                            field="todo.completed"
+                                            ng-click="markCompleted(todo)">
+                                    </material-checkbox>
+                                </td>
+                                <td>
+                                    <a target="_blank" ng-href="{{todo.file}}" ng-if="todo.file" ng-bind="todo.fileName"></a>
+                                    <span ng-if="!todo.file">None</span>
+                                </td>
+                                <td>
+                                    <a class="btn btn-small btn-default" ng-click="editTodo(todo.id)">Edit</a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-small btn-danger" ng-click="deleteTodo(todo)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

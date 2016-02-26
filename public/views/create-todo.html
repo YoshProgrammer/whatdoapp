@@ -1,0 +1,116 @@
+<form class="container form-material" name="forms.form" novalidate>
+    <div class="row">
+        <div class="col-sm-3 section-summary">
+            <h3>Todo Details</h3>
+            <p>You can change the priority level at anytime.</p>
+            <a href="/user/todos"><i class="ion-android-arrow-back"></i> Back to my todos </a>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-content">
+                    <material-input field="todo.description"
+                                    label="Description"
+                                    type="text"
+                                    required>
+                    </material-input>
+
+                    <material-select label="Priority"
+                                     required>
+                        <select ng-model="todo.priority"
+                                ng-options="priority.level as priority.name for priority in priorityLevels"
+                                required></select>
+                    </material-select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 section-summary">
+            <h3>Due Date and notification</h3>
+            <p>Use the due date to keep track of any todos.</p>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <material-input field="todo.dueDate | date"
+                                            label="Due Date"
+                                            type="text"
+                                            disabled>
+                            </material-input>
+
+                            <div class="row" style="padding-bottom: 20px;" ng-if="newDueDate || !todo.dueDate">
+                                <div class="col-md-6">
+                                    <p class="input-group">
+                                        <input type="date" uib-datepicker-popup class="form-control" ng-model="todo.dueDate"
+                                               is-open="status.opened" datepicker-options="dateOptions"
+                                               ng-required="true" close-text="Close"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="open($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </button>
+                                    </span>
+                                    </p>
+                                </div>
+                            </div>
+
+                            <a ng-click="newDueDate = !newDueDate">
+                                <span ng-bind="newDueDate ? 'Reset' : 'Change'"></span> due date
+                            </a>
+                        </div>
+                        <div class="col-sm-6">
+                            <material-select label="Email notification time" required>
+                                <select ng-model="email.notification" required>
+                                    <option value="1">Send today</option>
+                                </select>
+                            </material-select>
+                        </div>
+                        <div class="col-sm-6">
+                            <button class="btn btn-default" style="margin-top: 20px;"
+                                    ng-click="sendEmail()" ng-disabled="!email.notification || !todo.description">Schedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3 section-summary">
+            <h3>Documents</h3>
+            <p>Attach documents to your todo as needed.</p>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-content">
+                    <div class="row" style="padding-top: 20px;">
+                        <div class="col-sm-6">
+                            <button filepicker type="filepicker"
+                                    on-success="onSuccess(event.fpfile)"
+                                    data-fp-multiple="false"
+                                    class="btn btn-default btn-small" ng-if="!todo.file"></button>
+                            <material-input field="todo.fileName"
+                                            label="File nickname"
+                                            type="text"
+                                            ng-if="todo.file"
+                                            required>
+                            </material-input>
+                            <span ng-if="todo.file">File uploaded successfully!
+                                <a target="_blank" ng-href="{{todo.file}}">View file</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-3 col-sm-9">
+            <div class="card">
+                <div class="card-content">
+                    <button class="btn btn-primary btn-lg" ng-click="createOrUpdateTodo()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

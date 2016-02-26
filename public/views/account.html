@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <div class="flex">
+                <div class="card-description">
+                    <h3>Account Overview</h3>
+                    <p>An overview of your account.</p>
+                </div>
+                <div class="card-body">
+                    <form class="form-material" style="width: 300px">
+                        <material-input label="Account Name" field="user.accountName" class="pb-xl" disabled></material-input>
+                    </form>
+                    <div class="flex pb-lg">
+                        <span>
+                            <strong>Member since</strong>
+                            <span class="block pt-sm" ng-bind="user.createdAt | date"></span>
+                        </span>
+                        <span class="pl-xl">
+                            <strong>First Name</strong>
+                            <span class="block pt-sm" ng-bind="user.firstName"></span>
+                        </span>
+                        <span class="pl-xl">
+                            <strong>Last Name</strong>
+                            <span class="block pt-sm"><span ng-bind="user.lastName"></span></span>
+                        </span>
+                        <span class="pl-xl">
+                            <strong>Remaining todos</strong>
+                            <span class="block pt-sm" ng-bind="todos.length"></span>
+                        </span>
+                        <span class="pl-xl">
+                            <strong>Todos</strong>
+                            <a class="block pt-sm" href="/user/todos">View</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

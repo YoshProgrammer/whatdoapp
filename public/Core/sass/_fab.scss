@@ -1,0 +1,372 @@
+/* ==========================================================================
+   Fab action button and loading indicator
+   ========================================================================== */
+
+.fab {
+    position: fixed;
+    z-index: 1000000; //todo fix z-indexes
+
+    bottom: 65px;
+    right: 55px;
+
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+
+    // Enable hardware-accelerated
+    transform: translateZ(0);
+
+    #fab-circle {
+        position: absolute;
+        display: flex;
+        align-content: center;
+        z-index: 1000000;
+    //    display: none;
+
+        user-select: none;
+        bottom: 10px;
+        right: 10px;
+    //    opacity: 0;
+
+
+        white-space: nowrap;
+        overflow: hidden;
+
+        background-color: #1D242C;
+        border-radius: 30px;
+        height: 60px;
+        line-height: 60px;
+        //   width: 120px;
+        width: 60px;
+        min-width: 60px;
+        //      width: 265px;
+        // width: 640px;
+        cursor: pointer;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+        text-align: center;
+
+        transition: all 0.2s ease-out;
+
+        &:hover {
+            text-decoration: none;
+        }
+
+        > i {
+            position: absolute;
+            left: 30px;
+            width: 60px;
+            margin-left: -30px;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 32px;
+            color: #fff;
+            transition: none;
+            user-select: none;
+            &:before {
+                //    content: "\f20e";
+                transition: transform 0.2s, color $transition-speed;
+            }
+            &.ion-close {
+                opacity: 0;
+                font-size: 28px;
+                &:before {
+                    transform: rotate(-90deg);
+                    content: "\f2d7";
+                }
+            }
+
+            &.ion-navicon-round {
+                opacity: 1;
+                &:before {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+
+        > img {
+            display: none;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 15px;
+            left: 15px;
+        }
+        > span {
+            padding-left: 10px;
+            display: none;
+            font-weight: bold;
+            color: #fff;
+            vertical-align: middle;
+        }
+
+        #fab-message {
+            transition: all 0.15s;
+            width: 0;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+
+        #fab-width-calculator {
+            position: absolute;
+            display: block;
+        //    visibility: hidden;
+            height: auto;
+            width: auto;
+            white-space: nowrap;
+            top: 100%;
+        }
+    }
+
+    /* Hidden for normal users
+    ========================================================================== */
+    &.normal-user:not(.loading) {
+        visibility: hidden;
+    }
+
+    /* Loading states
+    ========================================================================== */
+    &.loading #fab-circle {
+        padding: 0 30px 0 45px;
+    //    opacity: 1;
+        span {
+            display: inline-block;
+        }
+        img {
+            display: block;
+        }
+        i {
+            display: none;
+        }
+        &:hover {
+            cursor: default;
+        }
+    }
+
+    &.loading-success, &.loading-error {
+        #fab-circle {
+            img {
+                display: none;
+            }
+            i {
+                display: inline-block;
+                animation: iconBounce 0.4s ease-out;
+                animation-delay: 0.3s;
+            }
+            span {
+                animation: fadeIn 0.2s ease-out;
+            }
+        }
+    }
+
+
+
+    &.open #fab-circle {
+    //    background-color: $brand-primary;
+        i {
+            &:before {
+            //    backface-visibility: hidden;
+            //    transition: all 0.2s ease-out;
+            }
+            &:before {
+            //    transform: rotate(360deg);
+            //    content: '\f144';
+            }
+        }
+        .ion-navicon {
+            opacity: 0;
+            &:before {
+                transform: rotate(90deg);
+            }
+        }
+        .ion-close {
+            opacity: 1;
+            &:before {
+                transform: rotate(0deg);
+            }
+        }
+    }
+
+    // Success state
+    &.loading-success #fab-circle {
+        background: #46C37B;
+        i {
+            &:before {
+                content: '\f120';
+            }
+        }
+    }
+
+    // Success state
+    &.loading-error #fab-circle {
+        background: $brand-danger;
+        i {
+            &:before {
+                content: '\f128';
+            }
+        }
+    }
+
+    /* Navigation menu
+    ========================================================================== */
+    .fab-menu {
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+
+        width: 250px;
+        height: 350px;
+        position: absolute;
+        bottom: 80px;
+        right: -15px;
+
+        ul {
+            list-style-type: none;
+            li {
+                position: absolute;
+                right: 25px;
+                height: 60px;
+                width: 60px;
+
+
+                i {
+                    color: $gray-dark;
+                    border: 1px solid $border-color-dark;
+                    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1);
+                    border-radius: 50%;
+                //    font-size: 28px;
+                    background: #fff;
+                    height: 60px;
+                    width: 60px;
+                    display: block;
+                    text-align: center;
+                    line-height: 60px;
+                    font-size: 24px;
+
+                    opacity: 0;
+                    transform: scale(0.9) translate(0, 10px);
+                    transition: transform 300ms ease-out;
+                }
+
+                a {
+                    color: $gray-dark;
+                    font-weight: 300;
+                    span {
+                        position: absolute;
+                        right: calc(100% + 10px);
+                        top: 50%;
+                        margin-top: -14px;
+                        background: $gray-dark;
+                        color: #fff;
+                        font-size: 12px;
+                        border-radius: $border-radius;
+                        height: 28px;
+                        line-height: 30px;
+                        padding: 0 13px;
+                        font-weight: bold;
+                        white-space: nowrap;
+
+                        vertical-align: middle;
+
+                        transform: translate(0, 10px);
+                        opacity: 0;
+                    }
+                    &:hover {
+                        color: $brand-primary;
+                        text-decoration: none;
+                        i {
+                            color: $brand-primary;
+                        }
+                        span {
+                            color: #fff;
+                            background: $brand-primary;
+                        }
+                    }
+                }
+
+                &#fab-home {
+                    display: none;
+                    bottom: -70px;
+                    span {
+                        transform: translate(0);
+                        transition: transform 200ms ease-out 0ms,
+                        opacity 200ms ease-out 0ms,
+                        color $transition-speed ease-out,
+                        background-color $transition-speed ease-out;
+                    }
+                }
+
+                @for $i from 0 through 3 {
+                    &:nth-child(#{$i + 1}) {
+                        bottom: (70px * $i);
+                        i {
+                            transition: transform 200ms ease-out (50ms * $i),
+                                        opacity 200ms ease-out (50ms * $i),
+                                        color $transition-speed ease-out;
+                        }
+                        span {
+                            transition: transform 200ms ease-out (50ms * $i),
+                                        opacity 200ms ease-out (50ms * $i),
+                                        color $transition-speed ease-out,
+                                        background-color $transition-speed ease-out;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
+    &.open {
+        #fab-circle {
+        //    background: #fff;
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1);
+            &:hover {
+                > .ion-close {
+                    color: #fff;
+                }
+                + .fab-menu {
+                    #fab-home span {
+                        background: $brand-primary;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+        .fab-menu {
+        //    animation: fabOpen 0.2s ease-out;
+            opacity: 1;
+            visibility: visible;
+            li {
+                i {
+                    opacity: 1;
+                    transform: scale(1) translate(0);
+                }
+                span {
+                    opacity: 1;
+                    transform: translate(0);
+                }
+            }
+        }
+    }
+}
+
+/* Animations
+========================================================================== */
+@keyframes fadeIn {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes iconBounce {
+    0% {
+        transform: scale(1, 1);
+    }
+    70% {
+        transform: scale(1.2, 1.2);
+    }
+    90% {
+        transform: scale(0.9, 0.9);
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}

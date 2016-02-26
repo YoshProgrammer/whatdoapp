@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en" ng-app="whatdoapp">
+<head>
+	<meta charset="UTF-8">
+	<base href="/">
+
+	<title>WHATDO App</title>
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="dist/css/dashboard.css">
+	<link rel="stylesheet" href="dist/css/libs.css">
+
+
+	<link rel="stylesheet" href="libs/enplug-dashboard-sdk-utils/dist/dashboard-sdk-utils.css">
+	<link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="dist/css/style.min.css"> <!-- custom styles -->
+
+
+
+	<!-- JS -->
+	<script src="libs/angular/angular.min.js"></script>
+
+	<script src="dist/js/libs.js"></script>
+
+	<!-- ANGULAR CUSTOM -->
+	<script src="dist/js/app.min.js"></script>
+
+</head>
+<body class="scroll">
+
+<!-- Navbar -->
+<header id="main-header" ng-controller="NavTitleController" ng-hide="hideTitle">
+	<ng-include src="'views/includes/nav-primary.html'"></ng-include>
+	<ng-include src="'views/includes/nav-title.html'"></ng-include>
+</header>
+
+<!-- Main Container -->
+<div class="content">
+
+	<!-- Page Content -->
+	<ng-view></ng-view>
+
+</div>
+
+</body>
+</html>

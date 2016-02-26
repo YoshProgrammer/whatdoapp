@@ -1,0 +1,696 @@
+/* Shared styling between Apps and Your Displays dropdowns
+========================================================================== */
+.complex-dropdown {
+    .menu-content {
+        padding: 0 !important;
+    }
+
+    // Dropdown headers
+    h6 {
+        position: relative;
+        margin: 0;
+        padding: 15px 20px;
+    //    background: $gray-lighter;
+        border-bottom: 1px solid $border-color;
+        text-transform: uppercase;
+        color: $gray-dark;
+        font-weight: bold;
+        font-size: 11px;
+        .header-links {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            text-transform: none;
+            font-size: 13px;
+            a:hover {
+                color: $brand-primary;
+            }
+        }
+        [class*="ion-"] {
+            margin-left: 5px;
+        }
+        a:before {
+            transition: all 0.2s;
+            backface-visibility: hidden; // fixes text shift bug
+        }
+        a.invert:before {
+            transform: rotate(180deg);
+        }
+    }
+
+    // Search input
+    form {
+        .form-group {
+            padding-bottom: 0;
+        }
+        .form-control, label {
+            font-size: 14px;
+        }
+        .form-control:focus, .form-control.active {
+            + label {
+                display: none;
+            }
+        }
+        .input-group-addon {
+            font-size: 16px;
+        //    padding-right: 20px;
+        }
+    }
+}
+
+/* Apps dropdown
+========================================================================== */
+#apps-dropdown {
+
+    // Make this bigger/smaller to make the icons bigger/smaller
+    $app-padding: 20px;
+
+    width: 400px;
+    left: -20px;
+    right: auto;
+
+    // set bg to match header so that on animation, it doesn't flicker white when more apps collapsed
+    background: $gray-lighter;
+
+    h6 {
+        padding-left: $app-padding  + ($app-padding / 2);
+        .header-links {
+            right: 15px;
+        }
+    }
+
+    .menu-content {
+        background: #fff;
+    }
+
+    // Lists of app icons and names
+    .app-list {
+        display: flex;
+        flex-wrap: wrap;
+        padding-left: 15px;
+        padding-right: 15px;
+        padding-bottom: $app-padding;
+        padding-top: $app-padding / 2;
+        text-align: center;
+        background: #fff;
+        color: $gray-dark;
+        overflow-x: hidden;
+
+        .loading-directive {
+            width: 100%;
+            margin: 20px 0 0 0;
+        }
+
+        // Individual app icon
+        .app-icon {
+            display: inline-block;
+            position: relative;
+            padding: 10px 10px 10px;
+            width: calc(100% * (1/4));
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 1.25;
+
+            // For the click effect on an app icon
+            &:after {
+                background: rgba(0, 0, 0, 0.10);
+                position: absolute;
+                content: '';
+                top: 13px;
+                right: 13px;
+                width: calc(100% - 26px);
+                height: 67px;
+                z-index: 2;
+                opacity: 0;
+                border-radius: 15%;
+            }
+            &:active {
+                &:after {
+                    opacity: 1;
+                }
+            }
+            img {
+                display: inline-block;
+                position: relative;
+                width: 100%;
+                padding: 3px;
+                height: auto;
+                border-radius: 15%;
+                margin-bottom: 4px;
+                transition: all $transition-speed $transition-timing;
+                backface-visibility: hidden;
+                transform: translateY(0);
+            }
+            .app-name {
+                display: block;
+                color: $gray-darker;
+            }
+            &:hover {
+                text-decoration: none;
+                img, &:after {
+                    transform: translateY(-5px);
+                }
+            }
+            &.active {
+                color: $brand-primary;
+                img {
+                    background-color: $gray-lighter;
+                }
+            }
+            &.misconfigured {
+                img {
+                    opacity: 0.2;
+                }
+                i {
+                    color: $brand-primary;
+                    position: absolute;
+                    top: 35px;
+                    right: 30px;
+                    font-size: 32px;
+                }
+            }
+        }
+    }
+
+    // Collapseable top part of app instances
+    .app-instances {
+        max-height: 400px;
+        transition: max-height 0.2s;
+        display: block;
+        overflow: hidden;
+        &.hiding {
+            max-height: 0;
+        }
+        .app-list {
+            padding-bottom: $app-padding / 2;
+        }
+        .apps-alert {
+            width: 100%;
+            text-align: left;
+            padding-left: $app-padding / 2;
+            font-size: 13px;
+            color: $gray-darker;
+        }
+        .zero-instances {
+            padding: $app-padding;
+            text-align: center;
+            p {
+                padding-bottom: 10px;
+            }
+        }
+    }
+
+    // Collapseable list of uninstalled apps
+    .more-apps {
+        max-height: 400px;
+        transition: max-height 0.2s;
+        display: block;
+        overflow: hidden;
+        &.hiding {
+            max-height: 0;
+        }
+        form {
+            padding: 0 !important;
+            label {
+                left: $app-padding + ($app-padding / 2) !important;
+            }
+            .form-control {
+                padding-left: $app-padding + ($app-padding / 2) !important;
+                padding-right: $app-padding + ($app-padding / 2) !important;
+            }
+            .input-group-addon {
+                padding-right: $app-padding + ($app-padding / 2) !important;
+            //    padding-right: 0;
+            }
+        }
+        .app-list {
+            overflow-y: scroll;
+            max-height: 320px;
+        }
+    }
+}
+
+/* Your Displays dropdown
+========================================================================== */
+#displays-dropdown {
+    $display-padding: 30px;
+
+    width: 400px;
+    left: -50px;
+    right: auto;
+
+    .current-display {
+        background: $gray-bg;
+        border-left: 3px solid $brand-primary;
+        padding: 10px 30px;
+        font-size: 14px;
+        .display-name {
+            display: inline-block;
+            color: $gray-dark;
+            font-weight: bold;
+            padding-right: 15px;
+        }
+        .display-actions {
+            display: block;
+            padding: 5px 8px 6px 0;
+            a {
+                display: inline-block;
+                font-weight: normal;
+            //    padding-right: 15px;
+            }
+        }
+
+        &.none-selected {
+            border-left: 0;
+            .display-name {
+                font-weight: normal;
+                color: $gray;
+            }
+            .display-actions {
+                display: none;
+            }
+        }
+    }
+
+    h6 {
+        padding-left: $display-padding;
+        > span:first-of-type {
+            display: inline-block;
+            max-width: 155px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .header-links {
+            right: $display-padding;
+        }
+    }
+
+    .display-list {
+        .loading-directive {
+            margin: 20px 0;
+        }
+    }
+
+    // Search input
+    form {
+        padding-bottom: 10px;
+    //    padding-top: 7px; // 30 minus 6px of input padding, 17 of form group
+        &.active {
+            padding-bottom: 10px;
+        }
+        input {
+            padding-left: $display-padding;
+        }
+        .input-group-addon {
+            padding-right: 30px;
+        }
+        label {
+            left: $display-padding;
+        }
+    }
+
+    ul {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        overflow-y: scroll;
+        max-height: 245px;
+        &.no-scroll {
+            overflow-y: hidden;
+            li span {
+                right: $display-padding;
+            }
+        }
+
+        li {
+            a {
+                font-size: 12px;
+            }
+            position: relative;
+            transition: none;
+            &:last-of-type, &.last {
+                border: 0 none;
+            //    padding-bottom: 10px;
+            }
+            &.add-display {
+                opacity: 0.5;
+                cursor: pointer;
+                transition: all $transition-speed $transition-timing;
+                padding-left: 15px;
+                &:hover {
+                    opacity: 1;
+                }
+                .btn {
+                    padding: 4px 6px;
+                    font-size: 11px;
+                }
+            }
+            > .location {
+                transition: none;
+                display: block;
+            //    font-size: 14px;
+                padding: 8px 20px 8px 15px;
+                border-bottom: 1px solid $border-color;
+                .badge {
+                    font-size: 11px;
+                    padding: 2px 8px;
+                }
+                .location-name {
+                    display: inline-block;
+                    max-width: 180px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                }
+            }
+            .location-settings {
+                transition: none;
+                position: absolute;
+                right: 23px;
+                top: 10px;
+                color: $gray;
+                &:before {
+                    margin-right: 5px;
+                    font-size: 15px;
+                }
+            }
+            &:last-child a,
+            &.last a,
+            &:last-child p,
+            &:last-child .location {
+                border-bottom: none;
+            }
+            &:hover {
+            //    border-top: 1px solid $brand-primary;
+            //    border-bottom: 1px solid $brand-primary;
+                a {
+                //    text-decoration: underline;
+                //    color: white;
+                //    background: $brand-primary;
+                }
+                span {
+                //    color: white;
+                }
+            }
+            .zero-results {
+                color: $gray;
+                padding: 10px $display-padding;
+            }
+        }
+    }
+}
+
+/* Share dropdown
+========================================================================== */
+#share-dropdown {
+    width: 300px;
+    right: -130px;
+    left: auto;
+    text-align: center;
+
+    .menu-content {
+        padding: 30px;
+    }
+
+    // Keep dropdown from hanging off page on smaller screens
+    @media(max-width: 1024px) {
+        right: -100px;
+    }
+
+    h6 {
+        font-family: 'Proxima Nova';
+        font-weight: 300;
+        font-size: 28px;
+        margin: 0;
+        padding-bottom: 10px;
+    }
+    p {
+        color: $gray;
+        font-size: 13px;
+    }
+    .social-icon {
+        position: relative;
+        a {
+            display: inline-block;
+            width: 72px;
+            height: 72px;
+            font-size: 44px;
+            margin: 0;
+            color: #fff;
+            background: $brand-primary;
+            border: 1px solid $brand-primary;
+            &:before {
+                vertical-align: middle;
+            }
+            &:hover {
+                background: darken($brand-primary, 7);
+                border: 1px solid darken($brand-primary, 7);
+            }
+            .ion-plus {
+                z-index: 2;
+                font-size: 10px;
+                position: absolute;
+                top: 63px;
+                right: 92px;
+                color: #fff;
+            }
+        }
+    }
+    form {
+        padding-top: 20px;
+        padding-bottom: 10px;
+        .form-group {
+            padding-bottom: 10px;
+            .form-control:focus + label {
+                display: none;
+            }
+        }
+        button {
+            width: 100%;
+        }
+    }
+    .see-preview {
+        color: $gray-light;
+        display: inline-block;
+        font-size: 12px;
+    }
+}
+
+/* Support dropdown
+========================================================================== */
+#support-dropdown {
+    width: 320px;
+    right: -140px;
+    left: auto;
+    text-align: center;
+
+    .menu-content {
+        padding: 15px 0 0 0;
+    }
+
+    // Keep dropdown from hanging off page on smaller screens
+    @media(max-width: 1190px) {
+        right: -65px;
+    }
+
+    h6 {
+        margin: 0;
+        padding-bottom: 15px;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: bold;
+        color: $gray-dark;
+        border-bottom: 1px solid $border-color;
+    }
+    .nav-support {
+        display: flex;
+        flex-wrap: wrap;
+        a {
+            display: inline-block;
+            padding: 10px;
+            width: calc(100% * (1/3));
+            &:after {
+
+                // Hide typical external link icon we have
+                display: none;
+            }
+            i {
+                color: $brand-primary;
+                display: block;
+                font-size: 38px;
+            }
+            .support-name {
+                color: $gray-dark;
+                display: block;
+                text-transform: uppercase;
+                font-size: 11px;
+                line-height: 1.3;
+                padding-bottom: 10px;
+            }
+            &:hover {
+                background: $gray-bg;
+                text-decoration: none;
+            }
+            &:active, &:focus {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+/* Downloads & Tools dropdown
+========================================================================== */
+#tools-dropdown {
+    width: 320px;
+    right: -140px;
+    left: auto;
+    text-align: center;
+
+    .menu-content {
+        padding: 15px 0 0 0;
+    }
+
+    // Keep dropdown from hanging off page on smaller screens
+    @media(max-width: 1190px) {
+        right: -65px;
+    }
+
+    h6 {
+        margin: 0;
+        padding-bottom: 15px;
+        text-transform: uppercase;
+        font-size: 11px;
+        font-weight: bold;
+        color: $gray-dark;
+        border-bottom: 1px solid $border-color;
+    }
+    .nav-tools {
+        display: flex;
+        flex-wrap: wrap;
+        a {
+            display: inline-block;
+            padding: 10px;
+            width: calc(100% * (1/3));
+            &:after {
+
+                // Hide typical external link icon we have
+                display: none;
+            }
+            i {
+                color: $brand-primary;
+                display: block;
+                font-size: 38px;
+            }
+            .tool-name {
+                color: $gray-dark;
+                display: block;
+                text-transform: uppercase;
+                font-size: 11px;
+                line-height: 1.3;
+                padding-bottom: 10px;
+            }
+            .tool-platform {
+                color: $gray-light;
+                font-size: 11px;
+                text-transform: none;
+            }
+            &:hover {
+                background: $gray-bg;
+                text-decoration: none;
+            }
+            &:active, &:focus {
+                text-decoration: none;
+            }
+        }
+    }
+}
+
+/* User dropdown
+========================================================================== */
+#user-dropdown {
+    width: 300px;
+    right: -40px;
+    left: auto;
+
+    .menu-content {
+        padding: 30px;
+    }
+
+    .media-left {
+        #change-gravatar-btn {
+            width: 80px;
+            height: 80px;
+            display: block;
+            position: absolute;
+            top: 30px;
+            padding: 20px 0;
+            text-align: center;
+            line-height: 20px;
+            color: #fff;
+            text-decoration: none;
+            opacity: 0;
+        }
+        &:hover {
+            #change-gravatar-btn {
+                opacity: 1;
+                background: rgba(64,120,192,.7);
+            }
+          }
+    }
+
+    .media-body {
+        padding-left: 10px;
+        span {
+            display: block;
+        }
+        .user-name {
+            font-size: 20px;
+            font-family: 'Proxima Nova';
+            -webkit-font-smoothing: subpixel-antialiased;
+        }
+        .user-email {
+            color: $gray;
+            font-size: 13px;
+            padding-bottom: 5px;
+        }
+        .btn {
+            padding: 7px 24px;
+            font-size: 13px;
+        }
+    }
+
+    img {
+        width: 80px;
+        height: 80px;
+        border-radius: $border-radius;
+    }
+
+    ul {
+        //    display: block;
+        padding: 0;
+        margin: 0;
+        li {
+            display: block;
+            a {
+                display: block;
+                padding-bottom: 15px;
+                color: $gray-dark;
+                font-weight: normal;
+                font-size: 14px;
+                &:hover {
+                    text-decoration: none;
+                    color: $brand-primary;
+                }
+            }
+            &:last-child a {
+                padding-bottom: 0;
+                color: $gray-light;
+                &:hover {
+                    color: $brand-primary;
+                }
+            }
+        }
+    }
+}

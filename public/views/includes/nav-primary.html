@@ -1,0 +1,33 @@
+<nav id="top-nav" ng-hide="hideTitle" ng-controller="NavTitleController">
+    <div class="container">
+
+        <!-- Left nav -->
+        <ul id="nav-left" class="nav-list">
+            <li>
+                <a href="/">
+                    <span>
+                        <img style="margin-left: -50px;" src="img/whatdo-logo.png" height="100px">
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <!-- end Left nav -->
+
+        <!-- Right nav -->
+        <ul id="nav-right" class="nav-list">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" id="nav-gravatar" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <img gravatar-src="user.email">
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/user/account">View Account</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a ng-click="logout()">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- end Right nav -->
+
+    </div>
+</nav>
